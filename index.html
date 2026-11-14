@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#18362b">
+  <meta name="description" content="A student-built community weed spotting and volunteer cleanup prototype.">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="stylesheet" href="styles.css">
+  <title>Weed Watch</title>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#home" aria-label="Weed Watch home"><span class="brand-mark">W</span><span>WEED WATCH</span></a>
+    <button class="icon-button" id="aboutButton" aria-label="About this prototype">?</button>
+  </header>
+
+  <main>
+    <section class="hero" id="home">
+      <p class="eyebrow">FLL INNOVATION PROJECT</p>
+      <h1>Spot it.<br><em>Flag it.</em> Fix it.</h1>
+      <p class="intro">Help volunteers find unwanted plants before they spread. Take a photo, check the result, and create a cleanup flag.</p>
+      <div class="scan-card">
+        <div class="camera-window" id="cameraWindow">
+          <img id="preview" alt="Your plant photo preview">
+          <div class="camera-empty" id="cameraEmpty"><span class="viewfinder">⌗</span><strong>Point at one plant</strong><small>Clear, close photos work best</small></div>
+          <div class="scan-line" id="scanLine"></div>
+        </div>
+        <label class="primary-button" for="photoInput"><span>＋</span> Take or choose a photo</label>
+        <input id="photoInput" type="file" accept="image/*" capture="environment" hidden>
+        <button class="text-button" id="demoButton">Try a demo scan</button>
+      </div>
+    </section>
+
+    <section class="result-panel" id="resultPanel" hidden aria-live="polite">
+      <button class="back-button" id="backButton">← Scan another</button>
+      <p class="eyebrow">SCAN RESULT</p>
+      <div class="result-heading"><div class="result-icon" id="resultIcon">!</div><div><h2 id="resultTitle">Possible weed</h2><p id="resultConfidence">Prototype confidence: 82%</p></div></div>
+      <div class="notice"><strong id="plantStatus">Plant detected</strong><span id="modelDetail">Checking visual features…</span></div>
+      <p class="safety-note"><strong>Ask an adult before touching it.</strong> AI can make mistakes. A volunteer should confirm the plant before removal.</p>
+      <div class="action-card">
+        <h3>Create a cleanup flag</h3>
+        <label>Where did you see it?</label>
+        <div class="location-row"><input id="locationInput" placeholder="Example: by the north playground"><button id="gpsButton">Use GPS</button></div>
+        <label>Helpful note <span>(optional)</span></label>
+        <textarea id="noteInput" rows="2" placeholder="Example: three plants beside the fence"></textarea>
+        <button class="primary-button" id="flagButton">⚑ Put down a digital flag</button>
+      </div>
+    </section>
+
+    <section class="flags-section" id="flags">
+      <div class="section-heading"><div><p class="eyebrow">VOLUNTEER BOARD</p><h2>Flags nearby</h2></div><span class="count" id="flagCount">0 open</span></div>
+      <div id="flagList" class="flag-list"></div>
+      <div class="empty-state" id="emptyState"><span>✓</span><h3>No open flags yet</h3><p>New weed reports will appear here for volunteers.</p></div>
+    </section>
+  </main>
+
+  <nav class="bottom-nav" aria-label="Main navigation"><a href="#home"><span>⌁</span>Scan</a><a href="#flags"><span>⚑</span>Flags</a></nav>
+
+  <dialog id="aboutDialog"><button class="dialog-close" id="closeDialog" aria-label="Close">×</button><p class="eyebrow">ABOUT THE IDEA</p><h2>A community cleanup loop</h2><ol><li>A student photographs a plant.</li><li>The prototype checks whether it looks like a plant and a possible weed.</li><li>The student creates a digital location flag.</li><li>An adult volunteer confirms and removes it safely.</li></ol><p class="safety-note">This classroom prototype is not a botanical or safety tool. Never touch or eat an unknown plant.</p></dialog>
+
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.22.0/dist/tf.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/mobilenet@2.1.1/dist/mobilenet.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
